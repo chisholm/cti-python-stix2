@@ -479,7 +479,7 @@ def test_semantic_equivalence_on_same_identity2():
     IDEN_KWARGS = dict(
         name="John Smith",
         identity_class="individual",
-        sectors=["government", "critical-infrastructure"],
+        sectors=["government", "infrastructure"],
     )
     iden1 = stix2.v21.Identity(id=IDENTITY_ID, **IDEN_KWARGS)
     iden2 = stix2.v21.Identity(id=IDENTITY_ID, **IDEN_KWARGS)
@@ -668,7 +668,7 @@ def test_semantic_equivalence_different_spec_version_raises():
 
 def test_semantic_equivalence_zero_match():
     IND_KWARGS = dict(
-        indicator_types=["APTX"],
+        indicator_types=["anomalous-activity"],
         pattern="[ipv4-addr:value = '192.168.1.1']",
         pattern_type="stix",
         valid_from="2019-01-01T12:34:56Z",
@@ -692,7 +692,7 @@ def test_semantic_equivalence_zero_match():
 
 def test_semantic_equivalence_different_spec_version():
     IND_KWARGS = dict(
-        labels=["APTX"],
+        labels=["malicious-activity"],
         pattern="[ipv4-addr:value = '192.168.1.1']",
     )
     weights = {
