@@ -33,8 +33,7 @@ jobs:
         # Provide the password for postgres
         env:
           MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
-        ports: [ 3306 ]
-        options: --health-cmd healthcheck.sh
+        ports: [ '3306:3306' ]
 
     strategy:
       matrix:
