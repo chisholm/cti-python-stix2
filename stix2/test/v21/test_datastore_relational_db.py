@@ -40,7 +40,8 @@ def db_backend(request):
         pass_ = os.getenv('MARIADB_PASSWORD', '')
         dbname = os.getenv('MARIADB_DATABASE', 'stix')
 
-        connect_url = f"mariadb+mariadbconnector://{user}:{pass_}@0.0.0.0/{dbname}"
+        #connect_url = f"mariadb+mariadbconnector://{user}:{pass_}@0.0.0.0/{dbname}"
+        connect_url = "mariadb+mariadbconnector://root@0.0.0.0/stix"
         backend = MariaDBBackend(connect_url, force_recreate=True)
 
     else:
