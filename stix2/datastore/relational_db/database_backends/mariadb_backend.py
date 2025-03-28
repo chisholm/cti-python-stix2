@@ -23,35 +23,6 @@ class MariaDBBackend(DatabaseBackend):
         super().__init__(database_connection_url, force_recreate=force_recreate, **kwargs)
 
     # =========================================================================
-    # schema methods
-
-    def _create_schemas(self):
-        with self.database_connection.begin() as trans:
-            trans.execute(CreateSchema("common", if_not_exists=True))
-            trans.execute(CreateSchema("sdo", if_not_exists=True))
-            trans.execute(CreateSchema("sco", if_not_exists=True))
-            trans.execute(CreateSchema("sro", if_not_exists=True))
-
-    @staticmethod
-    def determine_schema_name(stix_object):
-        if isinstance(stix_object, _DomainObject):
-            return "sdo"
-        elif isinstance(stix_object, _Observable):
-            return "sco"
-        elif isinstance(stix_object, _RelationshipObject):
-            return "sro"
-        elif isinstance(stix_object, _MetaObject):
-            return "common"
-
-    @staticmethod
-    def schema_for(stix_class):
-        return schema_for(stix_class)
-
-    @staticmethod
-    def schema_for_core():
-        return "common"
-
-    # =========================================================================
     # sql type methods (overrides)
 
     @staticmethod

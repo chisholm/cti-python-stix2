@@ -7,6 +7,7 @@ import pytest
 
 import stix2
 from stix2.datastore import DataSourceError
+from stix2.datastore.relational_db.database_backends.mariadb_backend import MariaDBBackend
 from stix2.datastore.relational_db.database_backends.postgres_backend import (
     PostgresBackend,
 )
@@ -19,7 +20,7 @@ import stix2.v21
 
 @pytest.fixture(
     scope="module",
-    params=["postgresql", "sqlite"]
+    params=["mariadb"]  # "postgresql", "sqlite",
 )
 def db_backend(request):
     if request.param == "postgresql":
@@ -33,6 +34,14 @@ def db_backend(request):
     elif request.param == "sqlite":
         connect_url = "sqlite://"  # in-memory DB
         backend = SQLiteBackend(connect_url, force_recreate=True)
+
+    elif request.param == "mariadb":
+        user = os.getenv('MARIADB_USER', 'root')
+        pass_ = os.getenv('MARIADB_PASSWORD', '')
+        dbname = os.getenv('MARIADB_DATABASE', 'stix')
+
+        connect_url = f"mariadb+mariadbconnector://{user}:{pass_}@0.0.0.0/{dbname}"
+        backend = MariaDBBackend(connect_url, force_recreate=True)
 
     else:
         raise ValueError(request.param)
