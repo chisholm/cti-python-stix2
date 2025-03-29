@@ -41,6 +41,8 @@ jobs:
 
     name: Python ${{ matrix.python-version }} Build
     steps:
+    - name: Install MariaDB connector prerequisites
+      run: apt install libmariadb3 libmariadb-dev
     - uses: actions/checkout@v4.2.2
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5.4.0
