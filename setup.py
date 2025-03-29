@@ -66,6 +66,7 @@ setup(
             'sqlalchemy',
             'sqlalchemy_utils',
             'psycopg2',
+            'mariadb'
         ],
     },
 )
